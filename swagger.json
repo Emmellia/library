@@ -1,0 +1,179 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Library API",
+      "version": "1.0.0",
+      "description": "A simple Express Library API"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Local server"
+      }
+    ],
+    "paths": {
+      "/books": {
+        "get": {
+          "summary": "Retrieves a list of books",
+          "tags": ["Books"],
+          "responses": {
+            "200": {
+              "description": "A JSON array of books",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Book"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        },
+        "post": {
+          "summary": "Creates a new book",
+          "tags": ["Books"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Book created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Book"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        }
+      },
+      "/books/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the book",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "get": {
+          "summary": "Retrieves a book by ID",
+          "tags": ["Books"],
+          "responses": {
+            "200": {
+              "description": "Book found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Book"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Book not found"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        },
+        "put": {
+          "summary": "Updates a book by ID",
+          "tags": ["Books"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Book updated successfully"
+            },
+            "404": {
+              "description": "Book not found"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Deletes a book by ID",
+          "tags": ["Books"],
+          "responses": {
+            "200": {
+              "description": "Book deleted successfully"
+            },
+            "404": {
+              "description": "Book not found"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+        "schemas": {
+            "Book": {
+                "type": "object",
+                "required": ["title", "author"],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Unique identifier for the book",
+                        "readOnly": true
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Title of the book"
+                    },
+                    "author": {
+                        "type": "string",
+                        "description": "Author of the book"
+                    },
+                    "published_date": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Published date of the book",
+                        "nullable": true
+                    },
+                    "genre": {
+                        "type": "string",
+                        "description": "Genre of the book",
+                        "nullable": true
+                    }
+                }
+            }
+        }
+    }    
+  }
+  
