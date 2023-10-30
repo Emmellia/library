@@ -11,7 +11,8 @@ const booksRoute = require('./routes/books');
 const db = require('./models');
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 
 // Swagger configuration
 const options = {
