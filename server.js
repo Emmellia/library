@@ -44,8 +44,7 @@ app.use('/books', booksRoute);
 
 
 db.sequelize.sync().then(() => {
-  console.log(`Database synced`);
-  // app.listen(PORT, () => {
-  //   console.log(`Server running on port ${PORT}`);
-  // });
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
